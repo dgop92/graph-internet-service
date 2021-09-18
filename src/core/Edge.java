@@ -2,34 +2,19 @@ package core;
 
 import java.awt.Color;
 
-public abstract class Edge {
+public abstract class Edge implements Component {
     
-    public Node from, to;
     public double weight;
     
-    public Edge(Node from, Node to, double weight) {
-        this.from = from;
-        this.to = to;
+    public Edge(double weight) {
         this.weight = weight;
     }
 
     public abstract void highlightEdge(Color color);
 
-    public Node getFrom() {
-        return from;
-    }
+    public abstract Node getFrom();
 
-    public void setFrom(Node from) {
-        this.from = from;
-    }
-
-    public Node getTo() {
-        return to;
-    }
-
-    public void setTo(Node to) {
-        this.to = to;
-    }
+    public abstract Node getTo();
 
     public double getWeight() {
         return weight;

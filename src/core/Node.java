@@ -2,7 +2,7 @@ package core;
 
 import java.awt.Color;
 
-public abstract class Node {
+public abstract class Node implements Component {
     
     private static int indexCounter = 0;
     private int index;
@@ -25,6 +25,15 @@ public abstract class Node {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Node)){
+            return false;
+        }
+        Node node = (Node) obj;
+        return node.index == this.index;
     }
 
 }

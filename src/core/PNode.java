@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import processing.core.PApplet;
 
-public class PNode extends Node implements Component{
+public class PNode extends Node {
 
     public static final int RADIUS = 25;
     private PApplet sketch;
