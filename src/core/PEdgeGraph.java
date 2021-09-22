@@ -1,7 +1,6 @@
 package core;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class PEdgeGraph implements Graph{
 
@@ -35,22 +34,22 @@ public class PEdgeGraph implements Graph{
     @Override
     public ArrayList<Node> getNodes() {
         ArrayList<Node> gnodes = new ArrayList<>();
-        Collections.copy(gnodes, nodes);
+        gnodes.addAll(nodes);
         return gnodes;
     }
 
     @Override
     public ArrayList<Edge> getEdges() {
         ArrayList<Edge> gedges = new ArrayList<>();
-        Collections.copy(gedges, edges);
+        gedges.addAll(edges);
         return gedges;
     }
 
     @Override
     public ArrayList<Component> getAllComponents() {
         ArrayList<Component> components = new ArrayList<>();
-        Collections.copy(components, edges);
-        Collections.copy(components, nodes);
+        components.addAll(nodes);
+        components.addAll(edges);
         return components;
     }
     
