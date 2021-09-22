@@ -2,6 +2,8 @@ package core;
 
 import java.util.ArrayList;
 
+import processing.core.PApplet;
+
 public class PEdgeGraph implements Graph{
 
     private ArrayList<PEdge> edges;
@@ -31,11 +33,27 @@ public class PEdgeGraph implements Graph{
         edges.add(edge);
     }
 
+    public void addNode(PApplet sketch, String name, int x, int y) {
+        nodes.add(new PNode(sketch, name, x, y));
+    }
+    
+    public void addEdge(PApplet sketch, PNode from, PNode to, double weight) {
+        edges.add(new PEdge(sketch, from, to, weight));
+    }
+
+    public boolean isNodeInGraph(PNode node) {
+        return nodes.contains(node);
+    }
+
     @Override
     public ArrayList<Node> getNodes() {
         ArrayList<Node> gnodes = new ArrayList<>();
         gnodes.addAll(nodes);
         return gnodes;
+    }
+    
+    public ArrayList<PNode> getPNodes() {
+        return nodes;
     }
 
     @Override
@@ -43,6 +61,11 @@ public class PEdgeGraph implements Graph{
         ArrayList<Edge> gedges = new ArrayList<>();
         gedges.addAll(edges);
         return gedges;
+    }
+
+    
+    public ArrayList<PEdge> getPEdges() {
+        return edges;
     }
 
     @Override

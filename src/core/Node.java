@@ -33,7 +33,7 @@ public abstract class Node implements Component {
             return false;
         }
         Node node = (Node) obj;
-        return node.index == this.index;
+        return this.name.equals(node.name);
     }
 
 }
