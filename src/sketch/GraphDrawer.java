@@ -19,6 +19,7 @@ public class GraphDrawer implements MenuObserver, SketchScreenObserver{
     private PApplet sketch;
 
     public GraphDrawer(PApplet sketch) {
+        graph = new PEdgeGraph();
         drawMode = DrawMode.DRAW_NODE;
         currentCommand = new DrawNodeCommand(this, "Torre Principal");
         this.sketch = sketch;
@@ -33,7 +34,10 @@ public class GraphDrawer implements MenuObserver, SketchScreenObserver{
 
     @Override
     public void onClickScreen(int x, int y) {
-        currentCommand.execute(x, y);
+        boolean isSuccessful = currentCommand.execute(x, y);
+        if (!isSuccessful){
+            System.out.println(currentCommand.getErrorMessage());
+        }
     }
 
     @Override

@@ -33,6 +33,7 @@ public class DrawEdgeCommand extends DrawCommand {
                     secondNode, 
                     weight
                 );
+                System.out.println("YESS");
                 firstNode = null;
                 secondNode = null;
             } 

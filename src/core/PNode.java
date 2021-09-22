@@ -25,7 +25,8 @@ public class PNode extends Node {
 
     @Override
     public void update() {
-        
+        sketch.fill(255);
+        sketch.circle(x, y, RADIUS);
     }
 
     public int getX() {

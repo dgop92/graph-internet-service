@@ -7,6 +7,7 @@ public class GraphSketch extends PApplet{
     public final int SKETCH_WIDTH = 800;
     public final int SKETCH_HEIGHT = 500;
 
+    private GraphDrawer graphDrawer;
 
     @Override
     public void settings() {
@@ -15,12 +16,24 @@ public class GraphSketch extends PApplet{
 
     @Override
     public void setup() {
-
+        graphDrawer = new GraphDrawer(this);
     }
 
     @Override
     public void draw() {
+        background(0);
         
+        graphDrawer.draw();
+    }
+
+    @Override
+    public void mouseClicked() {
+        graphDrawer.onClickScreen(mouseX, mouseY);
+        super.mouseClicked();
+    }
+
+    public GraphDrawer getGraphDrawer() {
+        return graphDrawer;
     }
 
     public void run() {

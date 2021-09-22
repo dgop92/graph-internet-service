@@ -22,7 +22,8 @@ public class DrawNodeCommand extends DrawCommand{
             return false;
         }
         graphDrawer.getGraph().addNode(graphDrawer.getSketch(), nodeName, x, y);
-        return false;
+        
+        return true;
     }
     
 }

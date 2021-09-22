@@ -18,7 +18,13 @@ public class PEdge extends Edge{
 
     @Override
     public void update() {
-        
+        sketch.stroke(255);
+        sketch.line(
+            from.x,
+            from.y,
+            to.x,
+            to.y
+        );
     }
 
     @Override

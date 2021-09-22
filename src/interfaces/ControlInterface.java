@@ -43,20 +43,80 @@ public class ControlInterface extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        edge_weight_textfield = new javax.swing.JTextField();
+        draw_node_button = new javax.swing.JButton();
+        node_name_textfield1 = new javax.swing.JTextField();
+        draw_node_button1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(247, 249, 249));
 
+        edge_weight_textfield.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        draw_node_button.setBackground(new java.awt.Color(59, 167, 187));
+        draw_node_button.setForeground(new java.awt.Color(255, 255, 255));
+        draw_node_button.setText("Modo: Dibujo Arista");
+        draw_node_button.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        draw_node_button.setPreferredSize(new java.awt.Dimension(150, 36));
+        draw_node_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onDrawEdgeMode(evt);
+            }
+        });
+
+        node_name_textfield1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        draw_node_button1.setBackground(new java.awt.Color(59, 167, 187));
+        draw_node_button1.setForeground(new java.awt.Color(255, 255, 255));
+        draw_node_button1.setText("Modo: Dibujo Nodo");
+        draw_node_button1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        draw_node_button1.setPreferredSize(new java.awt.Dimension(150, 36));
+        draw_node_button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onDrawNodeMode(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 451, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(edge_weight_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(draw_node_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(104, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(31, 31, 31)
+                    .addComponent(node_name_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(286, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(212, Short.MAX_VALUE)
+                    .addComponent(draw_node_button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(89, 89, 89)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 627, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(edge_weight_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(draw_node_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(485, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(42, 42, 42)
+                    .addComponent(node_name_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(549, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(42, 42, 42)
+                    .addComponent(draw_node_button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(549, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -72,6 +132,19 @@ public class ControlInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void onDrawEdgeMode(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onDrawEdgeMode
+        graphSketch.getGraphDrawer().onEdgeButtonClick(
+            Double.parseDouble(edge_weight_textfield.getText())
+        );
+        
+    }//GEN-LAST:event_onDrawEdgeMode
+
+    private void onDrawNodeMode(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onDrawNodeMode
+        graphSketch.getGraphDrawer().onNodeButtonClick(
+            node_name_textfield1.getText()
+        );
+    }//GEN-LAST:event_onDrawNodeMode
 
     /**
      * @param args the command line arguments
@@ -109,6 +182,10 @@ public class ControlInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton draw_node_button;
+    private javax.swing.JButton draw_node_button1;
+    private javax.swing.JTextField edge_weight_textfield;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField node_name_textfield1;
     // End of variables declaration//GEN-END:variables
 }
