@@ -16,10 +16,12 @@ public class GraphDrawer implements MenuObserver, SketchScreenObserver{
     private PEdgeGraph graph;
     private DrawMode drawMode;
     private DrawCommand currentCommand;
+    private PApplet sketch;
 
     public GraphDrawer(PApplet sketch) {
         drawMode = DrawMode.DRAW_NODE;
         currentCommand = new DrawNodeCommand(this, "Torre Principal");
+        this.sketch = sketch;
     }
 
     public void draw() {
@@ -54,5 +56,13 @@ public class GraphDrawer implements MenuObserver, SketchScreenObserver{
 
     public DrawMode getDrawMode() {
         return drawMode;
+    }
+
+    public PEdgeGraph getGraph() {
+        return graph;
+    }
+
+    public PApplet getSketch() {
+        return sketch;
     }
 }

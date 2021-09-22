@@ -13,7 +13,15 @@ public class DrawNodeCommand extends DrawCommand{
 
     @Override
     public boolean execute(int x, int y) {
-        
+        if (graphDrawer.getGraph().isNameAlreadyInUse(nodeName)){
+            setErrorMessage("Nombre en uso");
+            return false;
+        }
+        if (graphDrawer.getGraph().isNodeColliding(x, y)){
+            setErrorMessage("Nodo colisionando");
+            return false;
+        }
+        graphDrawer.getGraph().addNode(graphDrawer.getSketch(), nodeName, x, y);
         return false;
     }
     

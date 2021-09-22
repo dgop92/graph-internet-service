@@ -16,4 +16,8 @@ public abstract class DrawCommand {
     public String getErrorMessage() {
         return errorMessage;
     }
+
+    protected void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 }

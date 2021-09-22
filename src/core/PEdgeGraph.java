@@ -41,9 +41,40 @@ public class PEdgeGraph implements Graph{
         edges.add(new PEdge(sketch, from, to, weight));
     }
 
-    public boolean isNodeInGraph(PNode node) {
-        return nodes.contains(node);
+    public boolean isNameAlreadyInUse(String nodeName) {
+        for (PNode node : nodes) {
+            if (node.getName().equals(nodeName)){
+                return true;
+            }
+        }
+        return false;
     }
+
+    public boolean isNodeColliding(int x, int y) {
+        double offset = 30;
+        double diameter = 2 * PNode.RADIUS + offset;
+        for (PNode node : nodes) {
+            double pt1 = Math.pow(x - node.x, 2) + Math.pow(y - node.y, 2);
+            double pt2 = Math.pow(diameter, 2);
+            if (pt1 < pt2){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public PNode getPNode(int x, int y) {
+        double radius = PNode.RADIUS;
+        for (PNode node : nodes) {
+            double pt1 = Math.pow(x - node.x, 2) + Math.pow(y - node.y, 2);
+            double pt2 = Math.pow(radius, 2);
+            if (pt1 < pt2){
+                return node;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public ArrayList<Node> getNodes() {
