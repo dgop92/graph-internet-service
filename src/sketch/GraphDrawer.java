@@ -41,21 +41,20 @@ public class GraphDrawer implements MenuObserver, SketchScreenObserver{
     }
 
     @Override
-    public void onNodeButtonClick(String nodeName) {
-        drawMode = DrawMode.DRAW_NODE;
-        currentCommand = new DrawNodeCommand(this, nodeName);
-    }
-
-    @Override
-    public void onEdgeButtonClick(double weight) {
-        drawMode = DrawMode.DRAW_EDGE;
-        currentCommand = new DrawEdgeCommand(this, weight);
-    }
-
-    @Override
-    public void onDeleteButtonClick() {
-        drawMode = DrawMode.DELETE_NODE;
-        currentCommand = new DeleteNodeCommand(this);
+    public void onChangeDrawMode(DrawMode drawMode, String commandInput) {
+        switch (drawMode) {
+            case DRAW_NODE:
+                currentCommand = new DrawNodeCommand(this, commandInput);
+                break;
+            case DRAW_EDGE:
+                currentCommand = new DrawEdgeCommand(this, commandInput);  
+                break;
+            case DELETE_NODE:
+                currentCommand = new DeleteNodeCommand(this);   
+                break;
+        }
+        this.drawMode = drawMode; 
+        
     }
 
     public DrawMode getDrawMode() {

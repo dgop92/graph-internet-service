@@ -1,11 +1,9 @@
 package interfaces;
 
+import sketch.DrawMode;
+
 public interface MenuObserver {
 
-    public void onNodeButtonClick(String nodeName);
-
-    public void onEdgeButtonClick(double weight);
-
-    public void onDeleteButtonClick();
+    public void onChangeDrawMode(DrawMode drawMode, String commandInput);
     
 }

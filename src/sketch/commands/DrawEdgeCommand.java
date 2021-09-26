@@ -5,11 +5,11 @@ import sketch.GraphDrawer;
 
 public class DrawEdgeCommand extends DrawCommand {
 
-    private double weight;
+    private String weight;
     private PNode firstNode;
     private PNode secondNode;
 
-    public DrawEdgeCommand(GraphDrawer graphDrawer, double weight) {
+    public DrawEdgeCommand(GraphDrawer graphDrawer, String weight) {
         super(graphDrawer);
         this.weight = weight;
     }
@@ -31,7 +31,7 @@ public class DrawEdgeCommand extends DrawCommand {
                     graphDrawer.getSketch(), 
                     firstNode, 
                     secondNode, 
-                    weight
+                    Double.parseDouble(weight)
                 );
                 System.out.println("YESS");
                 firstNode = null;

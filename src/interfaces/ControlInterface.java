@@ -3,12 +3,14 @@ package interfaces;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
+import sketch.DrawMode;
 import sketch.GraphSketch;
 
 
 public class ControlInterface extends javax.swing.JFrame {
 
-    GraphSketch graphSketch;
+    private GraphSketch graphSketch;
     
     private final Color MAIN_COLOR = new Color(180, 10, 9);
     private final Color PRIMARY_TEXT = new Color(33, 33, 33);
@@ -35,10 +37,10 @@ public class ControlInterface extends javax.swing.JFrame {
         };
 
         centreWindows();
-        updateButtonGroup(0);
+        updateButtonGroup(0, null);
     }
 
-    public void updateButtonGroup(int activeIndex) {
+    public void updateButtonGroup(int activeIndex, DrawMode drawMode) {
         activeButtonGroup[activeIndex] = true;
         for (int i = 0; i < activeButtonGroup.length; i++) {
             activeButtonGroup[i] = false;
@@ -54,6 +56,12 @@ public class ControlInterface extends javax.swing.JFrame {
                 buttonGroup[i].setBackground(BACKGROUND_COLOR);
                 labelGroup[i].setForeground(PRIMARY_TEXT);
             }
+        }
+        if (drawMode != null){
+            graphSketch.getGraphDrawer().onChangeDrawMode(
+                drawMode, 
+                command_input.getText()
+            );
         }
     }
     
@@ -173,7 +181,6 @@ public class ControlInterface extends javax.swing.JFrame {
         command_input_label.setIconTextGap(12);
         command_input_container.add(command_input_label);
 
-        command_input.setEditable(false);
         command_input.setBackground(new java.awt.Color(255, 255, 255));
         command_input.setColumns(7);
         command_input.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -182,6 +189,11 @@ public class ControlInterface extends javax.swing.JFrame {
         command_input.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 189, 189)), javax.swing.BorderFactory.createEmptyBorder(7, 7, 7, 7)));
         command_input.setMargin(new java.awt.Insets(10, 10, 10, 10));
         command_input.setName(""); // NOI18N
+        command_input.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                OnCommandInputChange(evt);
+            }
+        });
         command_input_container.add(command_input);
 
         jPanel2.setBackground(new java.awt.Color(247, 250, 250));
@@ -296,16 +308,23 @@ public class ControlInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onDrawNode(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onDrawNode
-        updateButtonGroup(0);
+        updateButtonGroup(0, DrawMode.DRAW_NODE);
     }//GEN-LAST:event_onDrawNode
 
     private void OnDrawEdge(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnDrawEdge
-        updateButtonGroup(1);
+        updateButtonGroup(1, DrawMode.DRAW_EDGE);
     }//GEN-LAST:event_OnDrawEdge
 
     private void onUnDrawNode(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onUnDrawNode
-        updateButtonGroup(2);
+        updateButtonGroup(2, DrawMode.DELETE_NODE);
     }//GEN-LAST:event_onUnDrawNode
+
+    private void OnCommandInputChange(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_OnCommandInputChange
+        graphSketch.getGraphDrawer().onChangeDrawMode(
+            graphSketch.getGraphDrawer().getDrawMode(), 
+            command_input.getText()
+        );
+    }//GEN-LAST:event_OnCommandInputChange
 
     /**
      * @param args the command line arguments
