@@ -28,12 +28,12 @@ public class CommonValidators {
         }
     }
 
-    public static void validateDoubleBoundries(double value, double min, double max) 
+    public static void validateDoubleBoundries(double value, int min, int max) 
         throws ValidationError{
         if (!(value >= min && value <= max)){
             throw new ValidationError(
                 String.format(
-                    "El valor ingresado no debe ser mayor a %d o menor a %d",
+                    "El valor ingresado debe ser mayor a %d o menor a %d",
                     min, 
                     max
                 )

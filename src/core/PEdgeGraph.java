@@ -33,6 +33,18 @@ public class PEdgeGraph implements Graph{
         edges.add(edge);
     }
 
+    public boolean isParallelEdgeInGraph(PNode a, PNode b) {
+        for (PEdge pEdge : edges) {
+            if (pEdge.from.equals(a) && pEdge.to.equals(b)){
+                return true;
+            }
+            if (pEdge.from.equals(b) && pEdge.to.equals(a)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addNode(PApplet sketch, String name, int x, int y) {
         nodes.add(new PNode(sketch, name, x, y));
     }

@@ -41,6 +41,14 @@ public class DrawEdgeCommand extends DrawCommand {
             CommonValidators.validateCanBeDouble(rawWeight);
             double weight = Double.parseDouble(rawWeight);
             CommonValidators.validateDoubleBoundries(weight, 1, 50);
+
+            if (firstNode.equals(secondNode)){
+                throw new ValidationError("No esta permitido referencias a si mísmo");
+            }
+
+            if (graphDrawer.getGraph().isParallelEdgeInGraph(firstNode, secondNode)){
+                throw new ValidationError("No esta permitido aristas paralelas");
+            }
             
             graphDrawer.getGraph().addEdge(
                 graphDrawer.getSketch(), 
@@ -48,13 +56,17 @@ public class DrawEdgeCommand extends DrawCommand {
                 secondNode, 
                 weight
             );
-            firstNode = null;
-            secondNode = null;
+            resetSelectedNodes();
         } catch (ValidationError e) {
             setErrorMessage(e.getReason());
+            resetSelectedNodes();
             return false;
         }
         return true;
     }
 
+    private void resetSelectedNodes() {
+        firstNode = null;
+        secondNode = null;
+    }
 }
