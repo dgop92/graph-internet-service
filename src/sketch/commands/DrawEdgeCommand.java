@@ -1,17 +1,19 @@
 package sketch.commands;
 
 import core.PNode;
+import forms.CommonValidators;
+import forms.ValidationError;
 import sketch.GraphDrawer;
 
 public class DrawEdgeCommand extends DrawCommand {
 
-    private String weight;
+    private String rawWeight;
     private PNode firstNode;
     private PNode secondNode;
 
-    public DrawEdgeCommand(GraphDrawer graphDrawer, String weight) {
+    public DrawEdgeCommand(GraphDrawer graphDrawer, String rawWeight) {
         super(graphDrawer);
-        this.weight = weight;
+        this.rawWeight = rawWeight;
     }
 
     @Override
@@ -26,20 +28,32 @@ public class DrawEdgeCommand extends DrawCommand {
             }
 
             if (firstNode != null && secondNode != null){
-                // TODO must check if edge is already inside edge list
-                graphDrawer.getGraph().addEdge(
-                    graphDrawer.getSketch(), 
-                    firstNode, 
-                    secondNode, 
-                    Double.parseDouble(weight)
-                );
-                System.out.println("YESS");
-                firstNode = null;
-                secondNode = null;
-            } 
+                return addEdge();
+            }
 
         }
         
+        return true;
+    }
+
+    private boolean addEdge() {
+        try {
+            CommonValidators.validateCanBeDouble(rawWeight);
+            double weight = Double.parseDouble(rawWeight);
+            CommonValidators.validateDoubleBoundries(weight, 1, 50);
+            
+            graphDrawer.getGraph().addEdge(
+                graphDrawer.getSketch(), 
+                firstNode, 
+                secondNode, 
+                weight
+            );
+            firstNode = null;
+            secondNode = null;
+        } catch (ValidationError e) {
+            setErrorMessage(e.getReason());
+            return false;
+        }
         return true;
     }
 

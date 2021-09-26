@@ -1,5 +1,7 @@
 package sketch.commands;
 
+import forms.CommonValidators;
+import forms.ValidationError;
 import sketch.GraphDrawer;
 
 public class DrawNodeCommand extends DrawCommand{
@@ -13,16 +15,21 @@ public class DrawNodeCommand extends DrawCommand{
 
     @Override
     public boolean execute(int x, int y) {
-        if (graphDrawer.getGraph().isNameAlreadyInUse(nodeName)){
-            setErrorMessage("Nombre en uso");
-            return false;
-        }
-        if (graphDrawer.getGraph().isNodeColliding(x, y)){
-            setErrorMessage("Nodo colisionando");
+        try {
+            CommonValidators.validateEmptyString(nodeName);
+            CommonValidators.validateStringBoundries(nodeName, 1, 20);
+            
+            if (graphDrawer.getGraph().isNameAlreadyInUse(nodeName)){
+                throw new ValidationError("El Nombre del nodo esta en uso");
+            }
+            if (graphDrawer.getGraph().isNodeColliding(x, y)){
+                throw new ValidationError("El Nodo a crear esta muy cerca de otro");
+            }
+        } catch (ValidationError e) {
+            setErrorMessage(e.getReason());
             return false;
         }
         graphDrawer.getGraph().addNode(graphDrawer.getSketch(), nodeName, x, y);
-        
         return true;
     }
     

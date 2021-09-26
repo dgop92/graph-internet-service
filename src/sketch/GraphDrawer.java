@@ -10,6 +10,7 @@ import sketch.commands.DeleteNodeCommand;
 import sketch.commands.DrawCommand;
 import sketch.commands.DrawEdgeCommand;
 import sketch.commands.DrawNodeCommand;
+import inevaup.dialogs.InfoDialog;
 
 public class GraphDrawer implements MenuObserver, SketchScreenObserver{
     
@@ -21,7 +22,7 @@ public class GraphDrawer implements MenuObserver, SketchScreenObserver{
     public GraphDrawer(PApplet sketch) {
         graph = new PEdgeGraph();
         drawMode = DrawMode.DRAW_NODE;
-        currentCommand = new DrawNodeCommand(this, "Torre Principal");
+        currentCommand = new DrawNodeCommand(this, "");
         this.sketch = sketch;
     }
 
@@ -36,7 +37,13 @@ public class GraphDrawer implements MenuObserver, SketchScreenObserver{
     public void onClickScreen(int x, int y) {
         boolean isSuccessful = currentCommand.execute(x, y);
         if (!isSuccessful){
-            System.out.println(currentCommand.getErrorMessage());
+            InfoDialog infoDialog = new InfoDialog(
+                null,
+                "Error",
+                currentCommand.getErrorMessage(), 
+                InfoDialog.TypeInfoDialog.ERROR_DIALOG
+            );
+            infoDialog.setVisible(true);
         }
     }
 
