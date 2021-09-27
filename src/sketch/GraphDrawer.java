@@ -6,7 +6,7 @@ import core.Component;
 import core.PEdgeGraph;
 import interfaces.MenuObserver;
 import processing.core.PApplet;
-import sketch.commands.DeleteNodeCommand;
+import sketch.commands.UnDrawNodeCommand;
 import sketch.commands.DrawCommand;
 import sketch.commands.DrawEdgeCommand;
 import sketch.commands.DrawNodeCommand;
@@ -57,8 +57,8 @@ public class GraphDrawer implements MenuObserver, SketchScreenObserver{
             case DRAW_EDGE:
                 currentCommand = new DrawEdgeCommand(this, commandInput);  
                 break;
-            case DELETE_NODE:
-                currentCommand = new DeleteNodeCommand(this);   
+            case UNDRAW_NODE:
+                currentCommand = new UnDrawNodeCommand(this);   
                 break;
         }
         this.drawMode = drawMode; 

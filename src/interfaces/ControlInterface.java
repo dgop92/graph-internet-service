@@ -337,7 +337,7 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
     }//GEN-LAST:event_OnDrawEdge
 
     private void onUnDrawNode(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onUnDrawNode
-        updateButtonGroup(2, DrawMode.DELETE_NODE);
+        updateButtonGroup(2, DrawMode.UNDRAW_NODE);
     }//GEN-LAST:event_onUnDrawNode
 
     private void OnCommandInputChange(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_OnCommandInputChange

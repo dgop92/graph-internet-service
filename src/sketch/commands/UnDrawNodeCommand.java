@@ -3,9 +3,9 @@ package sketch.commands;
 import core.PNode;
 import sketch.GraphDrawer;
 
-public class DeleteNodeCommand extends DrawCommand{
+public class UnDrawNodeCommand extends DrawCommand{
 
-    public DeleteNodeCommand(GraphDrawer graphDrawer) {
+    public UnDrawNodeCommand(GraphDrawer graphDrawer) {
         super(graphDrawer);
         graphDrawer.sendFeebackMessage("Haz click en un nodo para eliminarlo");
     }
