@@ -87,6 +87,10 @@ public class PEdgeGraph implements Graph{
         return null;
     }
 
+    public void deleteNode(PNode node) {
+        edges.removeIf(pEdge -> pEdge.isNodeInEdge(node));
+        nodes.remove(node);
+    }
 
     @Override
     public ArrayList<Node> getNodes() {

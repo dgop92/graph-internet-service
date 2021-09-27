@@ -23,5 +23,9 @@ public abstract class Edge implements Component {
     public void setWeight(double weight) {
         this.weight = weight;
     }
+
+    public boolean isNodeInEdge(Node node) {
+        return getFrom().equals(node) || getTo().equals(node);
+    }
     
 }
