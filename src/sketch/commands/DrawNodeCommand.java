@@ -11,6 +11,7 @@ public class DrawNodeCommand extends DrawCommand{
     public DrawNodeCommand(GraphDrawer graphDrawer, String nodeName) {
         super(graphDrawer);
         this.nodeName = nodeName;
+        graphDrawer.sendFeebackMessage("Haz click en el lienzo para crear un nodo");
     }
 
     @Override

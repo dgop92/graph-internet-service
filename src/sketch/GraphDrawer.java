@@ -18,6 +18,7 @@ public class GraphDrawer implements MenuObserver, SketchScreenObserver{
     private DrawMode drawMode;
     private DrawCommand currentCommand;
     private PApplet sketch;
+    private FeedBackObserver feedBackObserver;
 
     public GraphDrawer(PApplet sketch) {
         graph = new PEdgeGraph();
@@ -62,6 +63,16 @@ public class GraphDrawer implements MenuObserver, SketchScreenObserver{
         }
         this.drawMode = drawMode; 
         
+    }
+
+    public void setFeedBackObserver(FeedBackObserver feedBackObserver) {
+        this.feedBackObserver = feedBackObserver;
+    }
+
+    public void sendFeebackMessage(String message) {
+        if (feedBackObserver != null){
+            feedBackObserver.onNewMessage(message);
+        }
     }
 
     public DrawMode getDrawMode() {

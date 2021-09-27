@@ -14,6 +14,7 @@ public class DrawEdgeCommand extends DrawCommand {
     public DrawEdgeCommand(GraphDrawer graphDrawer, String rawWeight) {
         super(graphDrawer);
         this.rawWeight = rawWeight;
+        resetSelectedNodes();
     }
 
     @Override
@@ -23,6 +24,11 @@ public class DrawEdgeCommand extends DrawCommand {
         if (selectedNode != null) {
             if (firstNode == null) {
                 firstNode = selectedNode;
+                String messageLine1 = String.format(
+                    "Ha seleccionado el nodo '%s', <br>", firstNode.name
+                );
+                String messageLine2 = "Seleccione otro nodo para crear la arista";
+                graphDrawer.sendFeebackMessage(messageLine1 + messageLine2);
             } else {
                 secondNode = selectedNode;
             }
@@ -68,5 +74,6 @@ public class DrawEdgeCommand extends DrawCommand {
     private void resetSelectedNodes() {
         firstNode = null;
         secondNode = null;
+        graphDrawer.sendFeebackMessage("Seleccione dos nodos para crear una arista");
     }
 }

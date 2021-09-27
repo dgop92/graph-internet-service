@@ -9,14 +9,15 @@ public class GraphSketch extends PApplet{
 
     private GraphDrawer graphDrawer;
 
-    @Override
-    public void settings() {
-        size(SKETCH_WIDTH, SKETCH_HEIGHT);
+    public GraphSketch() {
+        super();
+        
+        graphDrawer = new GraphDrawer(this);
     }
 
     @Override
-    public void setup() {
-        graphDrawer = new GraphDrawer(this);
+    public void settings() {
+        size(SKETCH_WIDTH, SKETCH_HEIGHT);
     }
 
     @Override

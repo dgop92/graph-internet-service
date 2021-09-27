@@ -5,10 +5,11 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import sketch.DrawMode;
+import sketch.FeedBackObserver;
 import sketch.GraphSketch;
 
 
-public class ControlInterface extends javax.swing.JFrame {
+public class ControlInterface extends javax.swing.JFrame implements FeedBackObserver{
 
     private GraphSketch graphSketch;
     
@@ -38,6 +39,13 @@ public class ControlInterface extends javax.swing.JFrame {
 
         centreWindows();
         updateButtonGroup(0, null);
+        graphSketch.getGraphDrawer().setFeedBackObserver(this);
+    }
+
+    @Override
+    public void onNewMessage(String message) {
+        String base = "<html>Info: %s</html>";
+        feedback_label.setText(String.format(base, message));
     }
 
     public void updateButtonGroup(int activeIndex, DrawMode drawMode) {
@@ -107,6 +115,7 @@ public class ControlInterface extends javax.swing.JFrame {
         undraw_node_mode_button = new javax.swing.JPanel();
         undraw_node_mode_label = new javax.swing.JLabel();
         command_input_label1 = new javax.swing.JLabel();
+        feedback_label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,7 +151,7 @@ public class ControlInterface extends javax.swing.JFrame {
         jSeparator7.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator7.setForeground(new java.awt.Color(117, 117, 117));
 
-        divider1_label.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        divider1_label.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         divider1_label.setForeground(new java.awt.Color(117, 117, 117));
         divider1_label.setText("Creación del grafo");
 
@@ -175,7 +184,7 @@ public class ControlInterface extends javax.swing.JFrame {
         command_input_container.setLayout(new java.awt.GridLayout(2, 1, 0, 5));
 
         command_input_label.setBackground(new java.awt.Color(248, 249, 250));
-        command_input_label.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        command_input_label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         command_input_label.setForeground(new java.awt.Color(33, 33, 33));
         command_input_label.setText("Nombre o peso");
         command_input_label.setIconTextGap(12);
@@ -254,10 +263,16 @@ public class ControlInterface extends javax.swing.JFrame {
         jPanel2.add(undraw_node_mode_button);
 
         command_input_label1.setBackground(new java.awt.Color(248, 249, 250));
-        command_input_label1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        command_input_label1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         command_input_label1.setForeground(new java.awt.Color(33, 33, 33));
         command_input_label1.setText("Modos");
         command_input_label1.setIconTextGap(12);
+
+        feedback_label.setBackground(new java.awt.Color(248, 249, 250));
+        feedback_label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        feedback_label.setForeground(new java.awt.Color(33, 33, 33));
+        feedback_label.setText("Info: Haz click en el lienzo para crear un nodo");
+        feedback_label.setIconTextGap(12);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -277,6 +292,10 @@ public class ControlInterface extends javax.swing.JFrame {
                             .addComponent(command_input_container, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(feedback_label, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,7 +309,9 @@ public class ControlInterface extends javax.swing.JFrame {
                 .addComponent(command_input_label1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(362, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(feedback_label, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(318, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -372,6 +393,7 @@ public class ControlInterface extends javax.swing.JFrame {
     private javax.swing.JLabel draw_edge_mode_label;
     private javax.swing.JPanel draw_node_mode_button;
     private javax.swing.JLabel draw_node_mode_label;
+    private javax.swing.JLabel feedback_label;
     private javax.swing.JPanel header;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
