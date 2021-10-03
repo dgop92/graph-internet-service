@@ -8,9 +8,8 @@ import sketch.DrawMode;
 import sketch.FeedBackObserver;
 import sketch.GraphSketch;
 
-
-public class ControlInterface extends javax.swing.JFrame implements FeedBackObserver{
-
+public class ControlInterface extends javax.swing.JFrame implements FeedBackObserver {
+    
     private GraphSketch graphSketch;
     
     private final Color MAIN_COLOR = new Color(180, 10, 9);
@@ -27,65 +26,67 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
         graphSketch.run();
         
         buttonGroup = new javax.swing.JPanel[]{
-            draw_node_mode_button, 
+            draw_node_mode_button,
             draw_edge_mode_button,
-            undraw_node_mode_button,
-        };
+            undraw_node_mode_button,};
         labelGroup = new javax.swing.JLabel[]{
-            draw_node_mode_label, 
+            draw_node_mode_label,
             draw_edge_mode_label,
-            undraw_node_mode_label,
-        };
-
+            undraw_node_mode_label,};
+        
         centreWindows();
         updateButtonGroup(0, null);
         graphSketch.getGraphDrawer().setFeedBackObserver(this);
     }
-
+    
     @Override
     public void onNewMessage(String message) {
         String base = "<html>Info: %s</html>";
         feedback_label.setText(String.format(base, message));
     }
-
+    
     public void updateButtonGroup(int activeIndex, DrawMode drawMode) {
         activeButtonGroup[activeIndex] = true;
         for (int i = 0; i < activeButtonGroup.length; i++) {
             activeButtonGroup[i] = false;
-            if (i == activeIndex){
+            if (i == activeIndex) {
                 activeButtonGroup[i] = true;
             }
         }
         for (int i = 0; i < activeButtonGroup.length; i++) {
-            if (activeButtonGroup[i]){
+            if (activeButtonGroup[i]) {
                 buttonGroup[i].setBackground(MAIN_COLOR);
                 labelGroup[i].setForeground(Color.WHITE);
-            }else{
+            } else {
                 buttonGroup[i].setBackground(BACKGROUND_COLOR);
                 labelGroup[i].setForeground(PRIMARY_TEXT);
             }
         }
-        if (drawMode != null){
+        if (drawMode != null) {
             graphSketch.getGraphDrawer().onChangeDrawMode(
-                drawMode, 
-                command_input.getText()
+                    drawMode,
+                    command_input.getText()
             );
         }
     }
     
+    public GraphSketch getSketch() {
+        
+        return graphSketch;
+    }
+    
     private void centreWindows() {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-
-        int windownsGap = 30;
-        int horizontalGap =  (int) ((dimension.getWidth() - 
-            graphSketch.SKETCH_WIDTH - this.getWidth() - windownsGap) / 2);
         
-        this.setLocation(horizontalGap, (int) 
-            ((dimension.getHeight() - this.getHeight()) / 2));
+        int windownsGap = 30;
+        int horizontalGap = (int) ((dimension.getWidth()
+                - graphSketch.SKETCH_WIDTH - this.getWidth() - windownsGap) / 2);
+        
+        this.setLocation(horizontalGap, (int) ((dimension.getHeight() - this.getHeight()) / 2));
         
         graphSketch.getSurface().setLocation(
-            horizontalGap + this.getWidth() + windownsGap, 
-            (int) ((dimension.getHeight() - graphSketch.SKETCH_HEIGHT) / 2));
+                horizontalGap + this.getWidth() + windownsGap,
+                (int) ((dimension.getHeight() - graphSketch.SKETCH_HEIGHT) / 2));
     }
 
     /**
@@ -96,38 +97,90 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        jDialog1 = new javax.swing.JDialog();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         title_label = new javax.swing.JLabel();
+        help = new javax.swing.JButton();
         divider1 = new javax.swing.JPanel();
-        jSeparator7 = new javax.swing.JSeparator();
         divider1_label = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
+        jSeparator7 = new javax.swing.JSeparator();
         command_input_container = new javax.swing.JPanel();
-        command_input_label = new javax.swing.JLabel();
         command_input = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        draw_node_mode_button = new javax.swing.JPanel();
-        draw_node_mode_label = new javax.swing.JLabel();
-        draw_edge_mode_button = new javax.swing.JPanel();
-        draw_edge_mode_label = new javax.swing.JLabel();
-        undraw_node_mode_button = new javax.swing.JPanel();
-        undraw_node_mode_label = new javax.swing.JLabel();
         command_input_label1 = new javax.swing.JLabel();
         feedback_label = new javax.swing.JLabel();
+        draw_edge_mode_button = new javax.swing.JPanel();
+        draw_edge_mode_label = new javax.swing.JLabel();
+        draw_node_mode_button = new javax.swing.JPanel();
+        draw_node_mode_label = new javax.swing.JLabel();
+        undraw_node_mode_button = new javax.swing.JPanel();
+        undraw_node_mode_label = new javax.swing.JLabel();
+        divider2 = new javax.swing.JPanel();
+        command_input_label2 = new javax.swing.JLabel();
+        divider1_label1 = new javax.swing.JLabel();
+        jSeparator9 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        goBack = new javax.swing.JButton();
+        divider1_label2 = new javax.swing.JLabel();
+        divider3 = new javax.swing.JPanel();
+        divider1_label3 = new javax.swing.JLabel();
+        jSeparator11 = new javax.swing.JSeparator();
+        jSeparator12 = new javax.swing.JSeparator();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(247, 249, 249));
 
-        header.setBackground(new java.awt.Color(136, 1, 1));
+        header.setBackground(new java.awt.Color(180, 10, 9));
 
         title_label.setBackground(new java.awt.Color(55, 71, 79));
         title_label.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         title_label.setForeground(new java.awt.Color(255, 255, 255));
         title_label.setText("Servicio de internet");
         title_label.setIconTextGap(15);
+
+        help.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/help_mini2.jpg"))); // NOI18N
+        help.setBorderPainted(false);
+        help.setPreferredSize(new java.awt.Dimension(179, 25));
+        help.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                helpMouseClicked(evt);
+            }
+        });
+        help.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -136,27 +189,32 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
             .addGroup(headerLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(title_label)
-                .addContainerGap(282, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(help, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(title_label)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(headerLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(title_label))
+                    .addGroup(headerLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(help, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         divider1.setBackground(new java.awt.Color(248, 249, 250));
 
-        jSeparator7.setBackground(new java.awt.Color(255, 255, 255));
-        jSeparator7.setForeground(new java.awt.Color(117, 117, 117));
-
         divider1_label.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         divider1_label.setForeground(new java.awt.Color(117, 117, 117));
-        divider1_label.setText("Creación del grafo");
+        divider1_label.setText("Controles del Sketch");
 
-        jSeparator8.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator8.setForeground(new java.awt.Color(117, 117, 117));
+
+        jSeparator7.setForeground(new java.awt.Color(117, 117, 117));
 
         javax.swing.GroupLayout divider1Layout = new javax.swing.GroupLayout(divider1);
         divider1.setLayout(divider1Layout);
@@ -164,33 +222,27 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
             divider1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(divider1Layout.createSequentialGroup()
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(divider1_label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         divider1Layout.setVerticalGroup(
             divider1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, divider1Layout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
+            .addGroup(divider1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addGroup(divider1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(divider1_label)
-                    .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(divider1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         command_input_container.setBackground(new java.awt.Color(248, 249, 250));
         command_input_container.setLayout(new java.awt.GridLayout(2, 1, 0, 5));
 
-        command_input_label.setBackground(new java.awt.Color(248, 249, 250));
-        command_input_label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        command_input_label.setForeground(new java.awt.Color(33, 33, 33));
-        command_input_label.setText("Nombre o peso");
-        command_input_label.setIconTextGap(12);
-        command_input_container.add(command_input_label);
-
-        command_input.setBackground(new java.awt.Color(255, 255, 255));
         command_input.setColumns(7);
         command_input.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         command_input.setForeground(new java.awt.Color(33, 33, 33));
@@ -208,8 +260,36 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
         jPanel2.setBackground(new java.awt.Color(247, 250, 250));
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
+        command_input_label1.setBackground(new java.awt.Color(248, 249, 250));
+        command_input_label1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        command_input_label1.setForeground(new java.awt.Color(33, 33, 33));
+        command_input_label1.setText("Modos");
+        command_input_label1.setIconTextGap(12);
+
+        feedback_label.setBackground(new java.awt.Color(248, 249, 250));
+        feedback_label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        feedback_label.setForeground(new java.awt.Color(33, 33, 33));
+        feedback_label.setText("Info: Haz click en el lienzo para crear un nodo");
+        feedback_label.setIconTextGap(12);
+
+        draw_edge_mode_button.setBackground(new java.awt.Color(180, 10, 9));
+        draw_edge_mode_button.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        draw_edge_mode_button.setName("Home"); // NOI18N
+        draw_edge_mode_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OnDrawEdge(evt);
+            }
+        });
+        draw_edge_mode_button.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 10));
+
+        draw_edge_mode_label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        draw_edge_mode_label.setForeground(new java.awt.Color(255, 255, 255));
+        draw_edge_mode_label.setText("Agregar Arista");
+        draw_edge_mode_label.setIconTextGap(15);
+        draw_edge_mode_button.add(draw_edge_mode_label);
+
         draw_node_mode_button.setBackground(new java.awt.Color(180, 10, 9));
-        draw_node_mode_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        draw_node_mode_button.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         draw_node_mode_button.setName("Home"); // NOI18N
         draw_node_mode_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -224,28 +304,8 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
         draw_node_mode_label.setIconTextGap(15);
         draw_node_mode_button.add(draw_node_mode_label);
 
-        jPanel2.add(draw_node_mode_button);
-
-        draw_edge_mode_button.setBackground(new java.awt.Color(180, 10, 9));
-        draw_edge_mode_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        draw_edge_mode_button.setName("Home"); // NOI18N
-        draw_edge_mode_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                OnDrawEdge(evt);
-            }
-        });
-        draw_edge_mode_button.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 10));
-
-        draw_edge_mode_label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        draw_edge_mode_label.setForeground(new java.awt.Color(255, 255, 255));
-        draw_edge_mode_label.setText("Agregar Arsita");
-        draw_edge_mode_label.setIconTextGap(15);
-        draw_edge_mode_button.add(draw_edge_mode_label);
-
-        jPanel2.add(draw_edge_mode_button);
-
         undraw_node_mode_button.setBackground(new java.awt.Color(180, 10, 9));
-        undraw_node_mode_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        undraw_node_mode_button.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         undraw_node_mode_button.setName("Home"); // NOI18N
         undraw_node_mode_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -260,19 +320,72 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
         undraw_node_mode_label.setIconTextGap(15);
         undraw_node_mode_button.add(undraw_node_mode_label);
 
-        jPanel2.add(undraw_node_mode_button);
+        divider2.setBackground(new java.awt.Color(248, 249, 250));
 
-        command_input_label1.setBackground(new java.awt.Color(248, 249, 250));
-        command_input_label1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        command_input_label1.setForeground(new java.awt.Color(33, 33, 33));
-        command_input_label1.setText("Modos");
-        command_input_label1.setIconTextGap(12);
+        command_input_label2.setBackground(new java.awt.Color(248, 249, 250));
+        command_input_label2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        command_input_label2.setForeground(new java.awt.Color(33, 33, 33));
+        command_input_label2.setText("Nombre o peso");
+        command_input_label2.setIconTextGap(12);
 
-        feedback_label.setBackground(new java.awt.Color(248, 249, 250));
-        feedback_label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        feedback_label.setForeground(new java.awt.Color(33, 33, 33));
-        feedback_label.setText("Info: Haz click en el lienzo para crear un nodo");
-        feedback_label.setIconTextGap(12);
+        divider1_label1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        divider1_label1.setForeground(new java.awt.Color(117, 117, 117));
+        divider1_label1.setText("Creación del grafo");
+
+        jSeparator9.setForeground(new java.awt.Color(117, 117, 117));
+
+        jSeparator10.setForeground(new java.awt.Color(117, 117, 117));
+
+        javax.swing.GroupLayout divider2Layout = new javax.swing.GroupLayout(divider2);
+        divider2.setLayout(divider2Layout);
+        divider2Layout.setHorizontalGroup(
+            divider2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(divider2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(command_input_label2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(divider2Layout.createSequentialGroup()
+                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(divider1_label1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        divider2Layout.setVerticalGroup(
+            divider2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(divider2Layout.createSequentialGroup()
+                .addGroup(divider2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(divider2Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(divider2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, divider2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(divider1_label1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(command_input_label2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 5, Short.MAX_VALUE))
+        );
+
+        goBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/goback_mini.jpg"))); // NOI18N
+        goBack.setBorderPainted(false);
+        goBack.setPreferredSize(new java.awt.Dimension(179, 25));
+        goBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                goBackMouseClicked(evt);
+            }
+        });
+        goBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goBackActionPerformed(evt);
+            }
+        });
+
+        divider1_label2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        divider1_label2.setForeground(new java.awt.Color(117, 117, 117));
+        divider1_label2.setText("Ir atrás");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -280,49 +393,192 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(divider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(divider2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(command_input_container, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(draw_node_mode_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(command_input_label1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(57, 57, 57)
+                                .addComponent(undraw_node_mode_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(148, 148, 148)
+                                .addComponent(draw_edge_mode_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(command_input_label1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(command_input_container, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(30, 30, 30)
+                        .addComponent(feedback_label, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 37, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(feedback_label, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(199, 199, 199)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(divider1_label2)
+                    .addComponent(goBack, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(divider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(command_input_container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(command_input_label1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(feedback_label, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addComponent(divider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(goBack, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(divider1_label2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(divider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(command_input_container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(draw_node_mode_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(command_input_label1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(undraw_node_mode_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(draw_edge_mode_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
+                .addComponent(feedback_label, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        divider3.setBackground(new java.awt.Color(248, 249, 250));
+
+        divider1_label3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        divider1_label3.setForeground(new java.awt.Color(117, 117, 117));
+        divider1_label3.setText("Operaciones");
+
+        jSeparator11.setForeground(new java.awt.Color(117, 117, 117));
+
+        jSeparator12.setForeground(new java.awt.Color(117, 117, 117));
+
+        javax.swing.GroupLayout divider3Layout = new javax.swing.GroupLayout(divider3);
+        divider3.setLayout(divider3Layout);
+        divider3Layout.setHorizontalGroup(
+            divider3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(divider3Layout.createSequentialGroup()
+                .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(divider1_label3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        divider3Layout.setVerticalGroup(
+            divider3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(divider3Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(divider3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(divider1_label3)
+                    .addGroup(divider3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 2, Short.MAX_VALUE))
+        );
+
+        jTextArea2.setBackground(new java.awt.Color(180, 10, 9));
+        jTextArea2.setColumns(20);
+        jTextArea2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jTextArea2.setForeground(new java.awt.Color(255, 255, 255));
+        jTextArea2.setRows(5);
+        jScrollPane2.setViewportView(jTextArea2);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel1.setText("Visualizador:");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel2.setText("Ejecutar:");
+
+        jButton1.setBackground(new java.awt.Color(180, 58, 72));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("DFS");
+        jButton1.setBorderPainted(false);
+        jButton1.setFocusable(false);
+
+        jButton2.setBackground(new java.awt.Color(180, 58, 72));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("BFS");
+        jButton2.setBorderPainted(false);
+        jButton2.setFocusable(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setBackground(new java.awt.Color(180, 58, 72));
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Costo Minimo");
+        jButton3.setBorderPainted(false);
+        jButton3.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(divider3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(43, 43, 43)
+                .addComponent(jButton2)
+                .addGap(40, 40, 40)
+                .addComponent(jButton3)
+                .addGap(78, 78, 78))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(divider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -342,10 +598,40 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
 
     private void OnCommandInputChange(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_OnCommandInputChange
         graphSketch.getGraphDrawer().onChangeDrawMode(
-            graphSketch.getGraphDrawer().getDrawMode(), 
-            command_input.getText()
+                graphSketch.getGraphDrawer().getDrawMode(),
+                command_input.getText()
         );
     }//GEN-LAST:event_OnCommandInputChange
+
+    private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_helpActionPerformed
+
+    private void helpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_helpMouseClicked
+        
+       
+        
+    }//GEN-LAST:event_helpMouseClicked
+
+    private void goBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goBackMouseClicked
+        int scene = graphSketch.getActualScene();
+        
+        if (scene != 0) {
+            
+            
+            graphSketch.setScene(0);
+            
+            
+        } 
+    }//GEN-LAST:event_goBackMouseClicked
+
+    private void goBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_goBackActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,6 +664,7 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ControlInterface().setVisible(true);
+                
             }
         });
     }
@@ -385,20 +672,42 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField command_input;
     private javax.swing.JPanel command_input_container;
-    private javax.swing.JLabel command_input_label;
     private javax.swing.JLabel command_input_label1;
+    private javax.swing.JLabel command_input_label2;
     private javax.swing.JPanel divider1;
     private javax.swing.JLabel divider1_label;
+    private javax.swing.JLabel divider1_label1;
+    private javax.swing.JLabel divider1_label2;
+    private javax.swing.JLabel divider1_label3;
+    private javax.swing.JPanel divider2;
+    private javax.swing.JPanel divider3;
     private javax.swing.JPanel draw_edge_mode_button;
     private javax.swing.JLabel draw_edge_mode_label;
     private javax.swing.JPanel draw_node_mode_button;
     private javax.swing.JLabel draw_node_mode_label;
     private javax.swing.JLabel feedback_label;
+    private javax.swing.JButton goBack;
     private javax.swing.JPanel header;
+    private javax.swing.JButton help;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel title_label;
     private javax.swing.JPanel undraw_node_mode_button;
     private javax.swing.JLabel undraw_node_mode_label;

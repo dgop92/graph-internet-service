@@ -1,10 +1,11 @@
 package core;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import processing.core.PApplet;
 
-public class PEdge extends Edge{
+public class PEdge extends Edge {
 
     public PNode from, to;
     private PApplet sketch;
@@ -16,20 +17,29 @@ public class PEdge extends Edge{
         this.sketch = sketch;
     }
 
+     
+  
+
     @Override
     public void update() {
-        sketch.stroke(255);
-        sketch.line(
-            from.x,
-            from.y,
-            to.x,
-            to.y
-        );
+        sketch.stroke(128, 64, 0);
+        sketch.strokeWeight(5);
+        
+      
+        
+        sketch.line(from.x, from.y , to.x , to.y);
+
     }
 
+    
+
+    // highlight the edge in the search or other thing
     @Override
     public void highlightEdge(Color color) {
         
+        sketch.stroke(255, 233, 0);
+      
+
     }
 
     @Override
@@ -41,5 +51,5 @@ public class PEdge extends Edge{
     public Node getTo() {
         return this.to;
     }
-    
+
 }
