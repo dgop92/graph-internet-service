@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import processing.core.PApplet;
 
@@ -12,11 +13,6 @@ public class PEdgeGraph implements Graph{
     public PEdgeGraph() {
         nodes = new ArrayList<>();
         edges = new ArrayList<>();
-    }
-
-    @Override
-    public void getNeighbors(Node node) {
-        // still thinking
     }
 
     public void addNode(PNode node) {
@@ -121,6 +117,28 @@ public class PEdgeGraph implements Graph{
         components.addAll(nodes);
         components.addAll(edges);
         return components;
+    }
+
+    @Override
+    public GraphState getGraphState() {
+        int n = nodes.size();
+        HashMap<Integer, Node> indexNode = new HashMap<>();
+        HashMap<Node, Integer> nodeIndex = new HashMap<>();
+        
+        int i = 0;
+        for (PNode node : nodes) {
+            indexNode.put(i, node);
+            nodeIndex.put(node, i);
+            i++;
+        }
+
+        double[][] matrix = new double[n][n];
+        for (PEdge pEdge : edges) {
+            Node from = pEdge.getFrom();
+            Node to = pEdge.getTo();
+            matrix[nodeIndex.get(from)][nodeIndex.get(to)] = pEdge.weight;
+        }
+        return new GraphState(matrix, indexNode);
     }
     
 

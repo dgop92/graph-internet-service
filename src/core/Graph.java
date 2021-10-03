@@ -3,8 +3,8 @@ package core;
 import java.util.ArrayList;
 
 public interface Graph {
-    
-    public void getNeighbors(Node node);
+
+    public GraphState getGraphState();
     
     public ArrayList<Node> getNodes();
     
