@@ -92,15 +92,46 @@ public class AlgorithmManager {
 
             ArrayList<Integer> path = getShortestPath(source, target);
             ArrayList<Node> nodePath = getNodesByArrOfIndeces(path);
+            ArrayList<Edge> edgesPath = getEdgesFromNodePath(nodePath);
+            hightlightEdges(edgesPath);
             return nodePath.toString();
         }
 
         return "";
     }
 
+    public ArrayList<Edge> getEdgesFromNodePath(ArrayList<Node> currNodes){
+        ArrayList<Edge> edgesPath = new ArrayList<>();
+        for (int i = 0; i < currNodes.size() - 1; i++) {
+            Edge edge = getEdgeFromNodes(currNodes.get(i), currNodes.get(i + 1));
+            edgesPath.add(edge);
+        }
+        return edgesPath;
+    }
+
+    private Edge getEdgeFromNodes(Node from, Node to) {
+        for (Edge edge : edges) {
+            if (edge.getFrom().equals(from) && edge.getTo().equals(to)){
+                return edge;
+            }
+            if (edge.getFrom().equals(to) && edge.getTo().equals(from)){
+                return edge;
+            }
+        }
+        return null;
+    }
+
     private void hightlightPath(ArrayList<Node> nodes){
         for (Node node : nodes) {
             node.highlightNode(new Color(249, 200, 174));
+        }
+    }
+
+    private void hightlightEdges(ArrayList<Edge> edgePath){
+        for (Edge edge : edgePath) {
+            edge.highlightEdge(new Color(174, 249, 241));
+            // edge.getFrom().highlightNode(new Color(249, 200, 174));
+            // edge.getTo().highlightNode(new Color(249, 200, 174));
         }
     }
 

@@ -24,7 +24,11 @@ public class PEdge extends Edge {
 
     @Override
     public void update() {
-        sketch.stroke(255);
+        sketch.stroke(
+            currEdgeColor.getRed(), 
+            currEdgeColor.getGreen(), 
+            currEdgeColor.getBlue()
+        );
         sketch.strokeWeight(5);
 
         sketch.line(from.x + ajuste, from.y + ajuste, to.x - ajuste, to.y - ajuste);
