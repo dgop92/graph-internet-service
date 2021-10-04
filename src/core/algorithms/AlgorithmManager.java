@@ -60,9 +60,11 @@ public class AlgorithmManager {
         ArrayList<Integer> indices
     ){
         ArrayList<Node> nodes = new ArrayList<>();
-        for (int i = 0; i < indices.size(); i++) {
-            nodes.add(gst.getNodeByIndex(i));
+        
+        for(int indice: indices){
+            nodes.add(gst.getNodeByIndex(indice));
         }
+        
         return nodes;
     }
 
