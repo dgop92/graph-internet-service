@@ -219,7 +219,7 @@ public class GraphSketch extends PApplet {
 
     public void animationOfSelection() {
 
-        stroke(255, 0, 0);
+        stroke(200, 0, 0);
         strokeWeight(5);
 
         float y1 = height / 2 + 70, x1 = width / 2;
@@ -249,7 +249,7 @@ public class GraphSketch extends PApplet {
             noStroke();
             fill(250);
             rect(width / 2 + width / 4 - textWidth(city_name_1) / 2,
-                    height - 110, textWidth(city_name_1), 19);
+                    height - 113, textWidth(city_name_1), 24);
             fill(255, 0, 0);
             textSize(30);
             text(city_name_1,
@@ -263,7 +263,7 @@ public class GraphSketch extends PApplet {
             noStroke();
             fill(250);
             rect(height / 2 - 136 - textWidth(city_name_2) / 2,
-                    height / 2 - 36, textWidth(city_name_2), 19);
+                    height / 2 - 40, textWidth(city_name_2), 24);
             fill(255, 0, 0);
             textSize(30);
             text(city_name_2,
@@ -277,7 +277,7 @@ public class GraphSketch extends PApplet {
             noStroke();
             fill(250);
             rect(width / 2 + 250 - textWidth(city_name_3) / 2,
-                    height / 4 - 22, textWidth(city_name_3), 22);
+                    height / 4 - 23, textWidth(city_name_3), 24);
             fill(255, 0, 0);
             textSize(30);
             text(city_name_3, width / 2 + 250 - textWidth(city_name_3) / 2,

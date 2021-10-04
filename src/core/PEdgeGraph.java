@@ -118,8 +118,8 @@ public class PEdgeGraph implements Graph{
     @Override
     public ArrayList<Component> getAllComponents() {
         ArrayList<Component> components = new ArrayList<>();
-        components.addAll(nodes);
         components.addAll(edges);
+        components.addAll(nodes);
         return components;
     }
     
