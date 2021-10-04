@@ -1,6 +1,7 @@
 package core.algorithms;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -24,10 +25,15 @@ public class AlgorithmManager {
         this.graph = graph;
     }
 
-    private void buildMatrix() {
+    private void buildMatrix() throws AlgorithmException {
         nodes = graph.getNodes();
         edges = graph.getEdges();
         int n = nodes.size();
+
+        if (n == 0){
+            // TODO message
+            throw new AlgorithmException("Empty grap");
+        }
 
         adjMatrix = new double[n][n];
         for (Edge edge : edges) {
@@ -49,7 +55,7 @@ public class AlgorithmManager {
         return false;
     }
 
-    public String executeBFS() {
+    public String executeBFS() throws AlgorithmException {
         buildMatrix();
         
         int initIndex = getIntegerByNode(mainTower);
@@ -59,7 +65,7 @@ public class AlgorithmManager {
         return nodes.toString();
     }
 
-    public String executeDFS() {
+    public String executeDFS() throws AlgorithmException {
         buildMatrix();
 
         int initIndex = getIntegerByNode(mainTower);
@@ -67,6 +73,29 @@ public class AlgorithmManager {
         ArrayList<Node> nodes = getNodesByArrOfIndeces(nodesVisited);
         hightlightPath(nodes);
         return nodes.toString();
+    }
+
+    public String executeShortestPath(String targetNodeName) throws AlgorithmException {
+        buildMatrix();
+
+        //TODO check valid name and throw error if no exits
+        Node targetNode = null;
+        for (Node n : nodes) {
+            if (n.name.equals(targetNodeName)){
+                targetNode = n;
+            }
+        }
+
+        if (targetNode != null){
+            int source = getIntegerByNode(mainTower);
+            int target = getIntegerByNode(targetNode);
+
+            ArrayList<Integer> path = getShortestPath(source, target);
+            ArrayList<Node> nodePath = getNodesByArrOfIndeces(path);
+            return nodePath.toString();
+        }
+
+        return "";
     }
 
     private void hightlightPath(ArrayList<Node> nodes){
@@ -135,14 +164,29 @@ public class AlgorithmManager {
         }
     }
 
-    private void getShortestPath(int source, int target) {
-
+    private ArrayList<Integer> getShortestPath(int source, int target) {
+        Integer[] prev = getDijkstraPrevArr(source);
+        ArrayList<Integer> path = reconstructPath(source, target, prev);
+        return path;
     }
 
-    private int[] getDijkstraPrevArr(int source){
+    private ArrayList<Integer> reconstructPath(int source, int target, Integer[] prev) {
+        ArrayList<Integer> path = new ArrayList<>();
+        
+        for (Integer at = target; at != null; at = prev[at]) path.add(at);
+        
+        Collections.reverse(path);
+
+        if (path.get(0) == source) return path;
+
+        path.clear();
+        return path;
+    }
+
+    private Integer[] getDijkstraPrevArr(int source){
 
         boolean[] visited = new boolean[adjMatrix.length];
-        int[] prev = new int[adjMatrix.length];
+        Integer[] prev = new Integer[adjMatrix.length];
         double[] distance = new double[adjMatrix.length];
         for (int i = 0; i < distance.length; i++) {
             distance[i] = MAX_VALUE;

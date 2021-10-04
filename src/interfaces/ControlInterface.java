@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import core.algorithms.AlgorithmException;
 import core.algorithms.AlgorithmManager;
 import inevaup.dialogs.InfoDialog;
 import sketch.DrawMode;
@@ -609,8 +610,10 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
     }// GEN-LAST:event_changeMap
 
     private void OnCommandInputChange(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_OnCommandInputChange
-        graphSketch.getGraphDrawer().onChangeDrawMode(graphSketch.getGraphDrawer().getDrawMode(),
-                command_input.getText());
+        graphSketch.getGraphDrawer().onChangeDrawMode(
+            graphSketch.getGraphDrawer().getDrawMode(),
+            command_input.getText()
+        );
     }// GEN-LAST:event_OnCommandInputChange
 
     private void helpActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_helpActionPerformed
@@ -618,17 +621,35 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
     }// GEN-LAST:event_helpActionPerformed
 
     private void OnDfs(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_OnDfs
-        String output = algorithmManager.executeDFS();
-        output_textarea.setText(output);
+        try {
+            String output = algorithmManager.executeDFS();
+            output_textarea.setText(output);
+        } catch (AlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }// GEN-LAST:event_OnDfs
 
     private void OnBFS(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_OnBFS
-        String output = algorithmManager.executeBFS();
-        output_textarea.setText(output);
+        try {
+            String output = algorithmManager.executeBFS();
+            output_textarea.setText(output);
+        } catch (AlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }// GEN-LAST:event_OnBFS
 
     private void OnDij(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_OnDij
-        // TODO add your handling code here:
+        try {
+            String output = algorithmManager.executeShortestPath(
+                init_node_name_input.getText()
+            );
+            output_textarea.setText(output);
+        } catch (AlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }// GEN-LAST:event_OnDij
 
     private void onMainTorre(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_onMainTorre
