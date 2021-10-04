@@ -1,23 +1,41 @@
 package core.algorithms;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 import java.awt.Color;
 
+import core.Edge;
 import core.Graph;
-import core.GraphState;
 import core.Node;
 
 public class AlgorithmManager {
     
     private Graph graph;
     private Node mainTower;
+    private final double MAX_VALUE = 10000000;
+    private double[][] adjMatrix;
+    private ArrayList<Node> nodes;
+    private ArrayList<Edge> edges;
 
     public AlgorithmManager(Graph graph) {
         this.graph = graph;
+    }
+
+    private void buildMatrix() {
+        nodes = graph.getNodes();
+        edges = graph.getEdges();
+        int n = nodes.size();
+
+        adjMatrix = new double[n][n];
+        for (Edge edge : edges) {
+            Node from = edge.getFrom();
+            Node to = edge.getTo();
+            adjMatrix[nodes.indexOf(from)][nodes.indexOf(to)] = edge.weight;
+            adjMatrix[nodes.indexOf(to)][nodes.indexOf(from)] = edge.weight;
+        }
     }
 
     public boolean setMainTowerName(String mainTowerName) {
@@ -32,19 +50,21 @@ public class AlgorithmManager {
     }
 
     public String executeBFS() {
-        GraphState gst = graph.getGraphState();
-        int initIndex = gst.getIntegerByNode(mainTower);
-        ArrayList<Integer> nodesVisited = getBFS(initIndex, gst);
-        ArrayList<Node> nodes = getNodesByArrOfIndeces(gst, nodesVisited);
+        buildMatrix();
+        
+        int initIndex = getIntegerByNode(mainTower);
+        ArrayList<Integer> nodesVisited = getBFS(initIndex);
+        ArrayList<Node> nodes = getNodesByArrOfIndeces(nodesVisited);
         hightlightPath(nodes);
         return nodes.toString();
     }
 
     public String executeDFS() {
-        GraphState gst = graph.getGraphState();
-        int initIndex = gst.getIntegerByNode(mainTower);
-        ArrayList<Integer> nodesVisited = getDFS(initIndex, gst);
-        ArrayList<Node> nodes = getNodesByArrOfIndeces(gst, nodesVisited);
+        buildMatrix();
+
+        int initIndex = getIntegerByNode(mainTower);
+        ArrayList<Integer> nodesVisited = getDFS(initIndex);
+        ArrayList<Node> nodes = getNodesByArrOfIndeces(nodesVisited);
         hightlightPath(nodes);
         return nodes.toString();
     }
@@ -55,25 +75,20 @@ public class AlgorithmManager {
         }
     }
 
-    private ArrayList<Node> getNodesByArrOfIndeces(
-        GraphState gst,
-        ArrayList<Integer> indices
-    ){
+    private ArrayList<Node> getNodesByArrOfIndeces(ArrayList<Integer> indices){
         ArrayList<Node> nodes = new ArrayList<>();
         
         for(int indice: indices){
-            nodes.add(gst.getNodeByIndex(indice));
+            nodes.add(getNodeByIndex(indice));
         }
         
         return nodes;
     }
 
     //Breadth First Search
-    private ArrayList<Integer> getBFS(int i, GraphState gst) {
-        double [][] matrix = gst.getAdjacencyMatrix();
-        
+    private ArrayList<Integer> getBFS(int i) {
         ArrayList<Integer> nodesVisited = new ArrayList<>();
-        boolean[] visited = new boolean[matrix.length];
+        boolean[] visited = new boolean[adjMatrix.length];
         
         Queue<Integer> queue = new LinkedList<>();
         visited[i] = true;
@@ -84,8 +99,8 @@ public class AlgorithmManager {
 
             nodesVisited.add(currIndex);
 
-            for (int v = 0; v < matrix.length; v++) {
-                if (matrix[currIndex][v] != 0) {
+            for (int v = 0; v < adjMatrix.length; v++) {
+                if (adjMatrix[currIndex][v] != 0) {
                     if (!visited[v]) {
                         visited[v] = true;
                         queue.add(v);
@@ -97,28 +112,96 @@ public class AlgorithmManager {
         return nodesVisited;
     }
 
-    private ArrayList<Integer> getDFS(int i, GraphState gst) {
+    private ArrayList<Integer> getDFS(int i) {
         ArrayList<Integer> nodesVisited = new ArrayList<>();
-        double [][] matrix = gst.getAdjacencyMatrix();
-        boolean[] visited = new boolean[matrix.length];
-        DFSRecursive(i, matrix, nodesVisited, visited);
+        boolean[] visited = new boolean[adjMatrix.length];
+        DFSRecursive(i, nodesVisited, visited);
         return nodesVisited;
     }
 
     private void DFSRecursive(
         int u, 
-        double[][] matrix, 
         ArrayList<Integer> nodesVisited,
         boolean[] visited
     ) {
         nodesVisited.add(u);
         visited[u] = true;
-        for (int v = 0; v < matrix.length; v++) {
-            if (matrix[u][v] != 0) {
+        for (int v = 0; v < adjMatrix.length; v++) {
+            if (adjMatrix[u][v] != 0) {
                 if (!visited[v]) {
-                    DFSRecursive(v, matrix, nodesVisited, visited);
+                    DFSRecursive(v, nodesVisited, visited);
                 }
             }
         }
+    }
+
+    private void getShortestPath(int source, int target) {
+
+    }
+
+    private int[] getDijkstraPrevArr(int source){
+
+        boolean[] visited = new boolean[adjMatrix.length];
+        int[] prev = new int[adjMatrix.length];
+        double[] distance = new double[adjMatrix.length];
+        for (int i = 0; i < distance.length; i++) {
+            distance[i] = MAX_VALUE;
+        }
+        distance[source] = 0;
+
+        PriorityQueue<DijTuple> pq = new PriorityQueue<>(); 
+        pq.offer(new DijTuple(source, 0));
+
+        while (!pq.isEmpty()){
+            DijTuple dijTuple = pq.poll();
+            visited[dijTuple.i] = true;
+
+            for (int v = 0; v < adjMatrix.length; v++) {
+                double weight = adjMatrix[dijTuple.i][v];
+
+                if (weight != 0) {
+                    double newDist = distance[dijTuple.i] + weight;
+                    if (newDist < distance[v]){
+                        distance[v] = newDist;
+                        prev[v] = dijTuple.i;
+                        pq.offer(new DijTuple(v, newDist));
+                    }
+                }
+            }
+        }
+
+        return prev;
+    }
+
+    private int getIntegerByNode(Node node){
+        int index = nodes.indexOf(node);
+        return index == -1 ? 0 : index;
+    }
+
+    private Node getNodeByIndex(int i){
+        return nodes.get(i);
+    }
+
+    public class DijTuple implements Comparable<DijTuple>{
+
+        public int i;
+        public double weight;
+
+        public DijTuple(int i, double weight) {
+            this.i = i;
+            this.weight = weight;
+        }
+
+        @Override
+        public int compareTo(DijTuple o) {
+            if (this.i < o.i) {
+                return -1;
+            }else if (this.i > o.i) {
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+
     }
 }
