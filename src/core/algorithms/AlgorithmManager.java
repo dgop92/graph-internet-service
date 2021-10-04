@@ -20,7 +20,6 @@ public class AlgorithmManager {
         this.graph = graph;
     }
 
-
     public boolean setMainTowerName(String mainTowerName) {
         ArrayList<Node> nodes = graph.getNodes();
         for (Node node : nodes) {
@@ -34,34 +33,37 @@ public class AlgorithmManager {
 
     public String executeBFS() {
         GraphState gst = graph.getGraphState();
-        int initIndex = mainTower == null ? 0 : gst.getIntegerByNode(mainTower);
+        int initIndex = gst.getIntegerByNode(mainTower);
         ArrayList<Integer> nodesVisited = getBFS(initIndex, gst);
-        for (int i = 0; i < nodesVisited.size(); i++) {
-            gst.getNodeByIndex(i).highlightNode(new Color(249, 200, 174));
-        }
-        return getNameArray(nodesVisited, gst).toString();
+        ArrayList<Node> nodes = getNodesByArrOfIndeces(gst, nodesVisited);
+        hightlightPath(nodes);
+        return nodes.toString();
     }
 
     public String executeDFS() {
         GraphState gst = graph.getGraphState();
-        int initIndex = mainTower == null ? 0 : gst.getIntegerByNode(mainTower);
+        int initIndex = gst.getIntegerByNode(mainTower);
         ArrayList<Integer> nodesVisited = getDFS(initIndex, gst);
-        for (int i = 0; i < nodesVisited.size(); i++) {
-            gst.getNodeByIndex(i).highlightNode(new Color(249, 200, 174));
-        }
-        return getNameArray(nodesVisited, gst).toString();
+        ArrayList<Node> nodes = getNodesByArrOfIndeces(gst, nodesVisited);
+        hightlightPath(nodes);
+        return nodes.toString();
     }
 
-    private ArrayList<String> getNameArray(
-        ArrayList<Integer> nodesVisited,
-        GraphState gst
-    ) {
-        
-        ArrayList<String> nodesNamesVisited = new ArrayList<>();
-        for (int i : nodesVisited) {
-            nodesNamesVisited.add(gst.getNodeByIndex(i).name);
+    private void hightlightPath(ArrayList<Node> nodes){
+        for (Node node : nodes) {
+            node.highlightNode(new Color(249, 200, 174));
         }
-        return nodesNamesVisited;
+    }
+
+    private ArrayList<Node> getNodesByArrOfIndeces(
+        GraphState gst,
+        ArrayList<Integer> indices
+    ){
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (int i = 0; i < indices.size(); i++) {
+            nodes.add(gst.getNodeByIndex(i));
+        }
+        return nodes;
     }
 
     //Breadth First Search

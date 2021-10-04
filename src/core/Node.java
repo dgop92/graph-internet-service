@@ -29,4 +29,9 @@ public abstract class Node implements Component {
         return this.name.equals(node.name);
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
 }
