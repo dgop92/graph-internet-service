@@ -573,7 +573,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="21" green="21" red="21" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nodo de inicio"/>
+            <Property name="text" type="java.lang.String" value="Nombre Nodo"/>
             <Property name="iconTextGap" type="int" value="12"/>
           </Properties>
         </Component>

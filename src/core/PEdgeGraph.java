@@ -137,8 +137,9 @@ public class PEdgeGraph implements Graph{
             Node from = pEdge.getFrom();
             Node to = pEdge.getTo();
             matrix[nodeIndex.get(from)][nodeIndex.get(to)] = pEdge.weight;
+            matrix[nodeIndex.get(to)][nodeIndex.get(from)] = pEdge.weight;
         }
-        return new GraphState(matrix, indexNode);
+        return new GraphState(matrix, indexNode, nodeIndex);
     }
     
 
