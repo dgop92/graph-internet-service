@@ -6,7 +6,7 @@ import processing.core.PApplet;
 
 public class PNode extends Node {
 
-    public static final int RADIUS = 30;
+    public static final int RADIUS = 38;
     private PApplet sketch;
     public int x;
     public int y;
@@ -29,7 +29,7 @@ public class PNode extends Node {
     // 
     @Override
     public void update() {
-        sketch.fill(255, 0, 0);
+        sketch.fill(255);
         sketch.stroke(0);
         sketch.strokeWeight(2);
         sketch.circle(x, y, RADIUS);
