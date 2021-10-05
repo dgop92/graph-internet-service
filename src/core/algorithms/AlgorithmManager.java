@@ -11,7 +11,6 @@ import java.awt.Color;
 import core.Edge;
 import core.Graph;
 import core.Node;
-import forms.ValidationError;
 
 public class AlgorithmManager {
     
@@ -32,7 +31,6 @@ public class AlgorithmManager {
         int n = nodes.size();
 
         if (n == 0){
-            // TODO message
             throw new AlgorithmException("El grafo no contiene vertices, "
                     + "debes crear por lo menos un nodo, para hacer las operaciones");
         }
@@ -81,7 +79,6 @@ public class AlgorithmManager {
     public String executeShortestPath(String targetNodeName) throws AlgorithmException{
         buildMatrix();
 
-        //TODO check valid name and throw error if no exits
         Node targetNode = null;
         for (Node n : nodes) {
             if (n.name.equals(targetNodeName)){
