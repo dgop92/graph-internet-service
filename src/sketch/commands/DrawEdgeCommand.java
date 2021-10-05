@@ -49,11 +49,11 @@ public class DrawEdgeCommand extends DrawCommand {
             CommonValidators.validateDoubleBoundries(weight, 1, 50);
 
             if (firstNode.equals(secondNode)){
-                throw new ValidationError("No esta permitido referencias a si mísmo");
+                throw new ValidationError("No están permitidas las autoreferencias");
             }
 
             if (graphDrawer.getGraph().isParallelEdgeInGraph(firstNode, secondNode)){
-                throw new ValidationError("No esta permitido aristas paralelas");
+                throw new ValidationError("No están permitidas las aristas paralelas");
             }
             
             graphDrawer.getGraph().addEdge(

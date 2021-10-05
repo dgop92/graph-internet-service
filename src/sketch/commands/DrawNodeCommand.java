@@ -18,7 +18,7 @@ public class DrawNodeCommand extends DrawCommand{
     public boolean execute(int x, int y) {
         try {
             CommonValidators.validateEmptyString(nodeName);
-            CommonValidators.validateStringBoundries(nodeName, 1, 20);
+            CommonValidators.validateStringBoundries(nodeName, 1, 4);
             
             if (graphDrawer.getGraph().isNameAlreadyInUse(nodeName)){
                 throw new ValidationError("El Nombre del nodo esta en uso");

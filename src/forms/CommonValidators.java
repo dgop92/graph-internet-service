@@ -4,7 +4,8 @@ public class CommonValidators {
 
     public static void validateEmptyString(String value) throws ValidationError {
         if (value.length() == 0) {
-            throw new ValidationError("Por favor, debe ingresar algun nombre");
+            throw new ValidationError("No ha ingresado algún caracter. "
+                    + "Por favor, ingrese algúno");
         }
     }
 
@@ -13,7 +14,9 @@ public class CommonValidators {
         if (!(value.length() >= min && value.length() <= max)) {
             throw new ValidationError(
                 String.format(
-                    "El nombre ingresado no debe ser mayor a %d o menor a %d",
+                    "El numero de caracteres, del valor digitado, "
+                            + "debe ser mayor o igual que %d y menor o igual "
+                            + "que %d. Por favor, intente con uno que esté en el rango",
                     min, 
                     max
                 )
@@ -24,7 +27,8 @@ public class CommonValidators {
         try {
             Double.parseDouble(value);
         } catch (Exception e) {
-            throw new ValidationError("El valor ingresado no es un decimal");
+            throw new ValidationError("El valor ingresado no es un decimal. "
+                    + "Pof favor ingresa un valor que sea decimal");
         }
     }
 
@@ -33,7 +37,9 @@ public class CommonValidators {
         if (!(value >= min && value <= max)){
             throw new ValidationError(
                 String.format(
-                    "El valor ingresado debe ser mayor a %d o menor a %d",
+                    "El valor ingresado debe ser mayor o igual que %d y menor "
+                            + "o igual que %d. Por favor, intente con uno que "
+                            + "esté en el rango",
                     min, 
                     max
                 )

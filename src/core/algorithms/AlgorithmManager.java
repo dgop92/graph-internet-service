@@ -100,7 +100,7 @@ public class AlgorithmManager {
             return nodePath.toString();
         } else {
         
-         throw new AlgorithmException("El nodo, seleccionado como inicial, "
+         throw new AlgorithmException("El nodo seleccionado como final, "
                  + "no existe. Por favor, Elige un nodo que sí exista");
         
         }
