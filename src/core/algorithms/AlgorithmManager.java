@@ -11,6 +11,7 @@ import java.awt.Color;
 import core.Edge;
 import core.Graph;
 import core.Node;
+import forms.ValidationError;
 
 public class AlgorithmManager {
     
@@ -32,7 +33,8 @@ public class AlgorithmManager {
 
         if (n == 0){
             // TODO message
-            throw new AlgorithmException("Empty grap");
+            throw new AlgorithmException("El grafo no contiene vertices, "
+                    + "debes crear por lo menos un nodo, para hacer las operaciones");
         }
 
         adjMatrix = new double[n][n];
@@ -56,8 +58,9 @@ public class AlgorithmManager {
     }
 
     public String executeBFS() throws AlgorithmException {
+      
         buildMatrix();
-        
+     
         int initIndex = getIntegerByNode(mainTower);
         ArrayList<Integer> nodesVisited = getBFS(initIndex);
         ArrayList<Node> nodes = getNodesByArrOfIndeces(nodesVisited);
@@ -75,7 +78,7 @@ public class AlgorithmManager {
         return nodes.toString();
     }
 
-    public String executeShortestPath(String targetNodeName) throws AlgorithmException {
+    public String executeShortestPath(String targetNodeName) throws AlgorithmException{
         buildMatrix();
 
         //TODO check valid name and throw error if no exits
@@ -95,9 +98,16 @@ public class AlgorithmManager {
             ArrayList<Edge> edgesPath = getEdgesFromNodePath(nodePath);
             hightlightEdges(edgesPath);
             return nodePath.toString();
+        } else {
+        
+         throw new AlgorithmException("El nodo, seleccionado como inicial, "
+                 + "no existe. Por favor, Elige un nodo que sí exista");
+        
         }
+        
+        
 
-        return "";
+        
     }
 
     public ArrayList<Edge> getEdgesFromNodePath(ArrayList<Node> currNodes){

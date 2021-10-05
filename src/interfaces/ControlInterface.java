@@ -625,8 +625,13 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
             String output = algorithmManager.executeDFS();
             output_textarea.setText(output);
         } catch (AlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            InfoDialog infoDialog = new InfoDialog(
+                null, 
+                "Error", 
+                e.getReason(),
+                InfoDialog.TypeInfoDialog.ERROR_DIALOG
+            );
+              infoDialog.setVisible(true);
         }
     }// GEN-LAST:event_OnDfs
 
@@ -635,8 +640,14 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
             String output = algorithmManager.executeBFS();
             output_textarea.setText(output);
         } catch (AlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+           
+            InfoDialog infoDialog = new InfoDialog(
+                null, 
+                "Error", 
+                e.getReason(),
+                InfoDialog.TypeInfoDialog.ERROR_DIALOG
+            );
+            infoDialog.setVisible(true);
         }
     }// GEN-LAST:event_OnBFS
 
@@ -647,8 +658,15 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
             );
             output_textarea.setText(output);
         } catch (AlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            
+             InfoDialog infoDialog = new InfoDialog(
+                null, 
+                "Error", 
+                e.getReason(),
+                InfoDialog.TypeInfoDialog.ERROR_DIALOG
+            );
+            infoDialog.setVisible(true);
+           
         }
     }// GEN-LAST:event_OnDij
 
