@@ -20,20 +20,16 @@ public class AlgorithmManager {
     private double[][] adjMatrix;
     private ArrayList<Node> nodes;
     private ArrayList<Edge> edges;
+    private Integer[] dijPrev;
 
     public AlgorithmManager(Graph graph) {
         this.graph = graph;
     }
 
-    private void buildMatrix() throws AlgorithmException {
+    public void buildMatrix() {
         nodes = graph.getNodes();
         edges = graph.getEdges();
         int n = nodes.size();
-
-        if (n == 0){
-            // TODO message
-            throw new AlgorithmException("Empty grap");
-        }
 
         adjMatrix = new double[n][n];
         for (Edge edge : edges) {
@@ -42,6 +38,13 @@ public class AlgorithmManager {
             adjMatrix[nodes.indexOf(from)][nodes.indexOf(to)] = edge.weight;
             adjMatrix[nodes.indexOf(to)][nodes.indexOf(from)] = edge.weight;
         }
+        dijPrev = null;
+    }
+
+    private void ensureGraphExists() throws AlgorithmException {
+        if (adjMatrix == null){
+            throw new AlgorithmException("Empty grap");
+        }
     }
 
     public boolean setMainTowerName(String mainTowerName) {
@@ -49,6 +52,7 @@ public class AlgorithmManager {
         for (Node node : nodes) {
             if (node.name.equals(mainTowerName)){
                 this.mainTower = node;
+                dijPrev = null;
                 return true;
             }
         }
@@ -56,7 +60,7 @@ public class AlgorithmManager {
     }
 
     public String executeBFS() throws AlgorithmException {
-        buildMatrix();
+        ensureGraphExists();
         
         int initIndex = getIntegerByNode(mainTower);
         ArrayList<Integer> nodesVisited = getBFS(initIndex);
@@ -66,7 +70,7 @@ public class AlgorithmManager {
     }
 
     public String executeDFS() throws AlgorithmException {
-        buildMatrix();
+        ensureGraphExists();
 
         int initIndex = getIntegerByNode(mainTower);
         ArrayList<Integer> nodesVisited = getDFS(initIndex);
@@ -76,7 +80,7 @@ public class AlgorithmManager {
     }
 
     public String executeShortestPath(String targetNodeName) throws AlgorithmException {
-        buildMatrix();
+        ensureGraphExists();
 
         //TODO check valid name and throw error if no exits
         Node targetNode = null;
@@ -205,8 +209,10 @@ public class AlgorithmManager {
     }
 
     private ArrayList<Integer> getShortestPath(int source, int target) {
-        Integer[] prev = getDijkstraPrevArr(source);
-        ArrayList<Integer> path = reconstructPath(source, target, prev);
+        if (dijPrev == null) {
+            dijPrev = getDijkstraPrevArr(source);
+        }
+        ArrayList<Integer> path = reconstructPath(source, target, dijPrev);
         return path;
     }
 

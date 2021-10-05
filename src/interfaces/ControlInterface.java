@@ -46,6 +46,11 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
         feedback_label.setText(String.format(base, message));
     }
 
+    @Override
+    public void onGraphChange() {
+        algorithmManager.buildMatrix();
+    }
+
     public void updateButtonGroup(int activeIndex, DrawMode drawMode) {
         activeButtonGroup[activeIndex] = true;
         for (int i = 0; i < activeButtonGroup.length; i++) {

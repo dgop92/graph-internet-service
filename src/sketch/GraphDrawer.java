@@ -45,6 +45,8 @@ public class GraphDrawer implements MenuObserver, SketchScreenObserver{
                 InfoDialog.TypeInfoDialog.ERROR_DIALOG
             );
             infoDialog.setVisible(true);
+        }else{
+            feedBackObserver.onGraphChange();
         }
     }
 
