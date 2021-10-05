@@ -24,11 +24,10 @@ public class PNode extends Node {
     @Override
     public void highlightNode(Color color) {
         this.currNodeColor = color;
-        try {
-            Thread.sleep(500);
-        } catch (Exception e) {
+    }
 
-        }
+    @Override
+    public void deHighlightNode() {
         this.currNodeColor = DEFAULT_COLOR;
     }
 
