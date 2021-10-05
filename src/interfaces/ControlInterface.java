@@ -622,7 +622,8 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
     }// GEN-LAST:event_OnCommandInputChange
 
     private void helpActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_helpActionPerformed
-        // TODO add your handling code here:
+        HelpDialog helpDialog = new HelpDialog(this, true);
+        helpDialog.setVisible(true);
     }// GEN-LAST:event_helpActionPerformed
 
     private void OnDfs(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_OnDfs
