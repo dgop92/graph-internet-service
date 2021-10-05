@@ -14,9 +14,9 @@ public class CommonValidators {
         if (!(value.length() >= min && value.length() <= max)) {
             throw new ValidationError(
                 String.format(
-                    "El numero de caracteres, del valor digitado, "
-                            + "debe ser mayor o igual que %d y menor o igual "
-                            + "que %d. Por favor, intente con uno que esté en el rango",
+                    "El numero de caracteres, del valor digitado, " +
+                    "debe ser mayor o igual que %d y menor o igual " +
+                    "que %d. Por favor, intente con uno que esté en el rango",
                     min, 
                     max
                 )

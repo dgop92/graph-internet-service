@@ -20,20 +20,16 @@ public class AlgorithmManager {
     private double[][] adjMatrix;
     private ArrayList<Node> nodes;
     private ArrayList<Edge> edges;
+    private Integer[] dijPrev;
 
     public AlgorithmManager(Graph graph) {
         this.graph = graph;
     }
 
-    private void buildMatrix() throws AlgorithmException {
+    public void buildMatrix() {
         nodes = graph.getNodes();
         edges = graph.getEdges();
         int n = nodes.size();
-
-        if (n == 0){
-            throw new AlgorithmException("El grafo no contiene vertices, "
-                    + "debes crear por lo menos un nodo, para hacer las operaciones");
-        }
 
         adjMatrix = new double[n][n];
         for (Edge edge : edges) {
@@ -42,6 +38,15 @@ public class AlgorithmManager {
             adjMatrix[nodes.indexOf(from)][nodes.indexOf(to)] = edge.weight;
             adjMatrix[nodes.indexOf(to)][nodes.indexOf(from)] = edge.weight;
         }
+        dijPrev = null;
+    }
+
+    private void ensureGraphExists() throws AlgorithmException {
+        if (adjMatrix == null){
+            throw new AlgorithmException(
+                "El grafo no contiene vertices, " +
+                "debes crear por lo menos un nodo, para hacer las operaciones");
+        }
     }
 
     public boolean setMainTowerName(String mainTowerName) {
@@ -49,6 +54,7 @@ public class AlgorithmManager {
         for (Node node : nodes) {
             if (node.name.equals(mainTowerName)){
                 this.mainTower = node;
+                dijPrev = null;
                 return true;
             }
         }
@@ -56,9 +62,8 @@ public class AlgorithmManager {
     }
 
     public String executeBFS() throws AlgorithmException {
-      
-        buildMatrix();
-     
+        ensureGraphExists();
+        
         int initIndex = getIntegerByNode(mainTower);
         ArrayList<Integer> nodesVisited = getBFS(initIndex);
         ArrayList<Node> nodes = getNodesByArrOfIndeces(nodesVisited);
@@ -67,7 +72,7 @@ public class AlgorithmManager {
     }
 
     public String executeDFS() throws AlgorithmException {
-        buildMatrix();
+        ensureGraphExists();
 
         int initIndex = getIntegerByNode(mainTower);
         ArrayList<Integer> nodesVisited = getDFS(initIndex);
@@ -76,8 +81,8 @@ public class AlgorithmManager {
         return nodes.toString();
     }
 
-    public String executeShortestPath(String targetNodeName) throws AlgorithmException{
-        buildMatrix();
+    public String executeShortestPath(String targetNodeName) throws AlgorithmException {
+        ensureGraphExists();
 
         Node targetNode = null;
         for (Node n : nodes) {
@@ -96,14 +101,11 @@ public class AlgorithmManager {
             hightlightEdges(edgesPath);
             return nodePath.toString();
         } else {
-        
-         throw new AlgorithmException("El nodo seleccionado como final, "
-                 + "no existe. Por favor, Elige un nodo que sí exista");
-        
+            throw new AlgorithmException(
+                "El nodo seleccionado como final, " +
+                "no existe. Por favor, Elige un nodo que sí exista"
+            );
         }
-        
-        
-
         
     }
 
@@ -131,14 +133,23 @@ public class AlgorithmManager {
     private void hightlightPath(ArrayList<Node> nodes){
         for (Node node : nodes) {
             node.highlightNode(new Color(249, 200, 174));
+            waitHighlight(500);
+            node.deHighlightNode();
         }
     }
 
     private void hightlightEdges(ArrayList<Edge> edgePath){
         for (Edge edge : edgePath) {
             edge.highlightEdge(new Color(174, 249, 241));
-            // edge.getFrom().highlightNode(new Color(249, 200, 174));
-            // edge.getTo().highlightNode(new Color(249, 200, 174));
+            edge.getFrom().highlightNode(new Color(249, 200, 174));
+            edge.getTo().highlightNode(new Color(249, 200, 174));
+            waitHighlight(500);
+        }
+        waitHighlight(1000);
+        for (Edge edge : edgePath) {
+            edge.deHighlightEdge();
+            edge.getFrom().deHighlightNode();
+            edge.getTo().deHighlightNode();
         }
     }
 
@@ -203,8 +214,10 @@ public class AlgorithmManager {
     }
 
     private ArrayList<Integer> getShortestPath(int source, int target) {
-        Integer[] prev = getDijkstraPrevArr(source);
-        ArrayList<Integer> path = reconstructPath(source, target, prev);
+        if (dijPrev == null) {
+            dijPrev = getDijkstraPrevArr(source);
+        }
+        ArrayList<Integer> path = reconstructPath(source, target, dijPrev);
         return path;
     }
 
@@ -238,18 +251,38 @@ public class AlgorithmManager {
             DijTuple dijTuple = pq.poll();
             visited[dijTuple.i] = true;
 
+            Node currNode = getNodeByIndex(dijTuple.i);
+            currNode.highlightNode(new Color(249, 200, 174));
+
             for (int v = 0; v < adjMatrix.length; v++) {
                 double weight = adjMatrix[dijTuple.i][v];
 
+                Node toNode = getNodeByIndex(v);
+
                 if (weight != 0) {
                     double newDist = distance[dijTuple.i] + weight;
+                    Edge edge = getEdgeFromNodes(currNode, toNode);
+                    edge.highlightEdge(new Color(213, 238, 27));
+                    toNode.highlightNode(new Color(197, 174, 249));
+
+                    waitHighlight(1500);
+                    
                     if (newDist < distance[v]){
+                        toNode.highlightNode(new Color(247, 249, 174));
+                        waitHighlight(500);
+                        toNode.deHighlightNode();
                         distance[v] = newDist;
                         prev[v] = dijTuple.i;
                         pq.offer(new DijTuple(v, newDist));
                     }
+
+                    edge.deHighlightEdge();
+                    toNode.deHighlightNode();
                 }
             }
+
+            currNode.deHighlightNode();
+
         }
 
         return prev;
@@ -262,6 +295,14 @@ public class AlgorithmManager {
 
     private Node getNodeByIndex(int i){
         return nodes.get(i);
+    }
+
+    public void waitHighlight(int ms){
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public class DijTuple implements Comparable<DijTuple>{

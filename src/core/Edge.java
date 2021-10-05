@@ -12,6 +12,8 @@ public abstract class Edge implements Component {
 
     public abstract void highlightEdge(Color color);
 
+    public abstract void deHighlightEdge();
+
     public abstract Node getFrom();
 
     public abstract Node getTo();

@@ -12,6 +12,8 @@ public abstract class Node implements Component {
 
     public abstract void highlightNode(Color color);
 
+    public abstract void deHighlightNode();
+
     public String getName() {
         return name;
     }

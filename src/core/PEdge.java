@@ -96,13 +96,11 @@ public class PEdge extends Edge {
     @Override
     public void highlightEdge(Color color) {
         this.currEdgeColor = color;
-        try {
-            Thread.sleep(500);
-        } catch (Exception e) {
+    }
 
-        }
-        this.currEdgeColor = DEFAULT_COLOR;
-
+    @Override
+    public void deHighlightEdge() {
+        this.currEdgeColor = DEFAULT_COLOR;   
     }
 
     @Override
