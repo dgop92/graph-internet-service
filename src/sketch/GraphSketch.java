@@ -22,6 +22,7 @@ public class GraphSketch extends PApplet {
     boolean selectCity = true, activeFollowing = true;
     String city_name_1 = "Los Santos", city_name_2 = "San Fierro",
             city_name_3 = "Las Venturas";
+    boolean introIsShown = false;
 
     @Override
     public void settings() {
@@ -35,13 +36,17 @@ public class GraphSketch extends PApplet {
 
     @Override
     public void draw() {
-        // background(0);
-
-       // System.out.println(mouseX + "  " + mouseY);
+   
 
         switch (scenario) {
             // selection of the map 
             case 0:
+                if(!introIsShown){
+                
+                    
+                   introIsShown = true; 
+                }
+                
                 // image background
                 availableToPaint = false;
                 activeFollowing = true;
@@ -58,26 +63,6 @@ public class GraphSketch extends PApplet {
                 image(map1, 0, 0, width, height);
                 availableToPaint = true;
 
-//                // draw the bottom to go back
-//                strokeWeight(3);
-//                noStroke();
-//                circle(30, 30, 40);
-//                stroke(0);
-//                line(18, 30, 42, 30);
-//                line(25, 40, 18, 30);
-//                line(25, 20, 18, 30);
-//
-//                // draw the bottom to start the paint of the graph
-//                strokeWeight(3);
-//                noStroke();
-//                circle(30, 30, 40);
-//                stroke(0);
-////                 line(18, 30, 42, 30);
-////                 line(25, 40, 18, 30);
-////                 line(25, 20, 18, 30);
-//
-//                noFill();
-//                rect(0, 50, 800, 450);
 
                 break;
             case 2:
@@ -92,14 +77,8 @@ public class GraphSketch extends PApplet {
 
         }
         
-        
-        
-//        System.out.println(this.availableToPaint + "  " + scenario);
-
         if (availableToPaint) {
             graphDrawer.draw();
-            //System.out.println("H");
-
         }
 
     }
@@ -109,12 +88,8 @@ public class GraphSketch extends PApplet {
 
         if (availableToPaint) {
             graphDrawer.onClickScreen(mouseX, mouseY);
-//            System.out.println("XD");
-           
         }
         
-//        System.out.println(availableToPaint);
-
         if (scenario == 0) {
             // Select a city
             if ((mouseX >= width / 2 && mouseX <= width) && (mouseY >= height / 2 + 70 && mouseY <= height)) {
@@ -153,6 +128,7 @@ public class GraphSketch extends PApplet {
             if (selectCity) {
 
                 // show the name of the city
+                
                 // first city; los santos 
                 if ((mouseX >= width / 2 && mouseX <= width) && (mouseY >= height / 2 + 70 && mouseY <= height)) {
 
@@ -293,21 +269,15 @@ public class GraphSketch extends PApplet {
     }
     
     public void setAvailable(boolean available){
-    
-    this.availableToPaint = available;
-    
+        this.availableToPaint = available;
     }
     
     public int getActualScene(){
-    
-    return scenario;
+        return scenario;
     }
     
-    
     public void setScene(int scenario){
-    
         this.scenario = scenario;
-    
     }
     
     
