@@ -38,6 +38,10 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
         updateButtonGroup(0, null);
         graphSketch.getGraphDrawer().setFeedBackObserver(this);
         algorithmManager = new AlgorithmManager(graphSketch.getGraphDrawer().getGraph());
+        
+        output_textarea.setText(
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        );
     }
 
     @Override
@@ -145,6 +149,7 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
         opt_container = new javax.swing.JPanel();
         draw_edge_mode_button6 = new javax.swing.JPanel();
         draw_edge_mode_label34 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         output_textarea = new javax.swing.JTextArea();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
@@ -426,7 +431,7 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
 
         undraw_node_mode_label2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         undraw_node_mode_label2.setForeground(new java.awt.Color(255, 255, 255));
-        undraw_node_mode_label2.setText(" Dijkstra");
+        undraw_node_mode_label2.setText("Menor Costo");
         undraw_node_mode_label2.setIconTextGap(15);
         undraw_node_mode_button2.add(undraw_node_mode_label2);
 
@@ -513,6 +518,7 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
         output_textarea.setRows(5);
         output_textarea.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
         output_textarea.setMargin(new java.awt.Insets(10, 10, 10, 10));
+        jScrollPane2.setViewportView(output_textarea);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -533,20 +539,20 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
                             .addComponent(init_node_name_label, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(init_node_name_input, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(feedback_label, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(divider2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(opt_container, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(divider2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(opt_container, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(divider4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(algo_container1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(algo_container1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(output_textarea)
+            .addComponent(jScrollPane2)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -579,8 +585,9 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
                 .addComponent(divider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(opt_container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(output_textarea, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(66, 66, 66)
@@ -659,9 +666,14 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
 
     private void OnDij(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_OnDij
         try {
-            String output = algorithmManager.executeShortestPath(
-                init_node_name_input.getText()
-            );
+            String output;
+            if (init_node_name_input.getText().equals("")){
+                output = algorithmManager.executeShortestPathToAllNodes();
+            }else{
+                output = algorithmManager.executeShortestPath(
+                    init_node_name_input.getText()
+                );
+            }
             output_textarea.setText(output);
         } catch (AlgorithmException e) {
             
@@ -783,6 +795,7 @@ public class ControlInterface extends javax.swing.JFrame implements FeedBackObse
     private javax.swing.JDialog jDialog1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;

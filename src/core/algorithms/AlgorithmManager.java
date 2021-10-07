@@ -109,6 +109,46 @@ public class AlgorithmManager {
         
     }
 
+    public String executeShortestPathToAllNodes() throws AlgorithmException{
+        ensureGraphExists();
+
+        String output = "";
+
+        ArrayList<Edge> allEdges = new ArrayList<>();
+        
+        int source = getIntegerByNode(mainTower);
+        int n = graph.getNodes().size();
+        for (int i = 0; i < n; i++) {
+            if (i != source) {
+                ArrayList<Integer> path = getShortestPath(source, i);
+                ArrayList<Node> nodePath = getNodesByArrOfIndeces(path);
+                output += String.format(
+                    "%s : %s \n", 
+                    getNodeByIndex(i).name, nodePath.toString()
+                );
+                allEdges.addAll(getEdgesFromNodePath(nodePath)); 
+            }
+        }
+
+        hightlightEdges(allEdges);
+
+        return output;
+    }
+
+    /* private void highlightPath(ArrayList<Edge> edgesPath) {
+        for (Edge edge : edgesPath) {
+            edge.highlightEdge(new Color(174, 249, 241));
+            edge.getFrom().highlightNode(new Color(249, 200, 174));
+            edge.getTo().highlightNode(new Color(249, 200, 174));
+        }
+        waitHighlight(1500);
+        for (Edge edge : edgesPath) {
+            edge.deHighlightEdge();
+            edge.getFrom().deHighlightNode();
+            edge.getTo().deHighlightNode();
+        }
+    } */
+
     public ArrayList<Edge> getEdgesFromNodePath(ArrayList<Node> currNodes){
         ArrayList<Edge> edgesPath = new ArrayList<>();
         for (int i = 0; i < currNodes.size() - 1; i++) {
